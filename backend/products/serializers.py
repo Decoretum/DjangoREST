@@ -20,14 +20,15 @@ class ProductSerializer(serializers.ModelSerializer):
     Using serializer attribute or method, we can DIRECTLY access model attributes and methods
     '''
     def get_get_discount(self,obj):
-        if hasattr(obj,'id'):
+        if hasattr(obj,'id'):                   
             return obj.get_discount() + 100
         else:
             return 'NO DISCOUNT'
         '''
-        In this case, 'obj' could be a valid OBJECT, or it could be an ORDERED DICTIONARY
+        In this case, 'obj' could be a valid Model OBJECT, or it could be an ORDERED DICTIONARY
         We use if and else, because 'else' occurs when there IS NO OBJECT INSTANTIATED or NO MODEL ID
         If no object instantiated, then you can't call obj.get_discount()
+        hasattr(a, b) can also be isinstance(a,b)
         '''
     
     def get_NoInstanceMethod(self, obj):
@@ -43,8 +44,13 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
 
-        #Fields can be instance methods or properties from models
-        #reference to property/function of Product model
+        '''
+        Fields can be instance methods or properties from models
+        reference to property/function of Product model
+        Fields that are blank = True / null = True will default be added to data, whether 
+        MODEL OBJECT OR ORDERED DICTIONARY DATA
+        '''
+        
         fields = [
             'title',
             'content',

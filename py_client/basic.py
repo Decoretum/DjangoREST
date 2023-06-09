@@ -31,6 +31,6 @@ HTTP request -> source code text of html
 REST API HTTP Request -> JSON something that our code can use -> almost structured as a python dictionary 
 '''
 
-get_response = requests.post(endpoint, json={'title':'Hello world', 'content':'HOHOHHAGA'}) 
+get_response = requests.post(endpoint, json={'title':'Hello world'}) 
 #print(get_response.json())
 print(get_response.json())

@@ -60,7 +60,7 @@ def APIView(request):
 
         '''
         Using Serializer, we automated a model's functions and returned the model's data
-        with a serializer that ADDS ON TOP of a model instance
+            with a serializer that ADDS ON TOP of a model instance
         '''
         
     return Response(data2) 
@@ -77,6 +77,7 @@ def PostView(request):
         '''
         Raise exception used for data validation when passed to serializers
         Checks if request data with corresponding model fields passed to serializers are VALID
+        It is VALID if required fields from model are satisfied by request data
         '''
 
         #instance = serializer.save() 
@@ -93,7 +94,7 @@ def PostView(request):
 @api_view(['POST'])
 def TestPostView(request):
     serializer = ProductSerializer(data=request.data)
-    if serializer.is_valid():
+    if serializer.is_valid(raise_exception=True):
         '''
         Checks if request data that corresponds to a model field is valid
         '''
