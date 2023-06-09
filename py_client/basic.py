@@ -5,20 +5,24 @@ endpoint = "http://127.0.0.1:8000/api/" #Django API endpoint we use
 endpoint = "http://127.0.0.1:8000/api/ModelData"
 endpoint = "http://127.0.0.1:8000/api/APIView"
 endpoint = "http://127.0.0.1:8000/api/PostView"
+#endpoint = "http://127.0.0.1:8000/api/TestPostView"
 
-'''
-response = requests.get(endpoint, params={"Param" : 123}, json={"Gael" : "Power!"})
-print(response.json())
-''' 
-#This gets data from our backend through get request
 
-#API -> HTTP Request, this is basically our HTTP request
-#form argument for form data, json argument for JSON data that we are sending
+# response = requests.get(endpoint, params={"Param" : 123}, json={"Gael" : "Power!"})
+# print(response.json())
 
-# We passed JSON data as request data, and it echoed back to us in response below 
+'''This gets data from our backend (Django Views) through get request
+
+API -> HTTP Request, this is basically our HTTP request
+form argument for form data, json argument for JSON data that we are sending
+
+We passed JSON data as request data, and it echoed back to us in response below '''
+
+
 
 '''#print(response.text) #printing raw text source code response
 #print(response.status_code) #printing JSON response of HTTP request''' 
+
 
 
 
@@ -27,5 +31,6 @@ HTTP request -> source code text of html
 REST API HTTP Request -> JSON something that our code can use -> almost structured as a python dictionary 
 '''
 
-get_response = requests.post(endpoint, json={'title':'Hello world'}) 
+get_response = requests.post(endpoint, json={'title':'Hello world', 'content':'HOHOHHAGA'}) 
+#print(get_response.json())
 print(get_response.json())

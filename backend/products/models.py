@@ -7,7 +7,7 @@ class Product(models.Model):
     content = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=15, decimal_places=2, default=99.99)
 
-    @property
+    #@property 
     def sale_price(self):
         return "%.2f" %(float(self.price) * 0.8)
     
@@ -19,6 +19,10 @@ class Product(models.Model):
 
     def Greet(self):
         try:
-            return "Hi!! Gael here!" #with a serializer, if this is None in the request, then serializer will return None
+            return "Hi!! Gael here!" 
+        #with a serializer, if this is None in the request, then serializer will return None
         except:
             return None
+        
+    def get_discount(self):
+        return 122

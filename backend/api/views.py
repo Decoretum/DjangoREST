@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from products.models import Product
-from products.serializers import ProductSerializer
+from products.serializers import * #ProductSerializer
 
 # Create your views here.
 def home(request, *args, **kwargs):
@@ -56,10 +56,14 @@ def APIView(request):
     if instance:
         #hashmap = model_to_dict(model_data)
         data = ProductSerializer(instance).data #also does model_to_dict(model_data)
+        data2 = SecondProductSerializer(instance).data 
+
         '''
-        Using Serializer, we automated model functions and returning the model's data
+        Using Serializer, we automated a model's functions and returned the model's data
+        with a serializer that ADDS ON TOP of a model instance
         '''
-    return Response(data) #JSON data
+        
+    return Response(data2) 
 
  
 #Django rest framework already doing the POST Request for you in view
@@ -69,9 +73,34 @@ def APIView(request):
 def PostView(request):
     serializer = ProductSerializer(data=request.data)
     ''' Checks if data being POST by request matches how data is formatted in serializer '''
-    if serializer.is_valid(raise_exception=True): #Raise exception used for data validation when passed to serializers
-        instance = serializer.save() 
-        #Basically saves Model data using serializer based from model fields' parameters
-        #It's like creating a new object hahah actually it is a new objet
-        print(instance)
-    return Response(serializer.data) #JSON data
+    if serializer.is_valid(raise_exception=True):
+        '''
+        Raise exception used for data validation when passed to serializers
+        Checks if request data with corresponding model fields passed to serializers are VALID
+        '''
+
+        #instance = serializer.save() 
+        '''
+        Instance basically creates a Model object using serializer based from model fields' parameters
+        This creates a new OBJECT in the DATABASE (With a Model ID)
+        This means that request data that are "blank" for other model fields will be added with
+            the model's default field data
+        '''
+
+    return Response(serializer.data) 
+    '''JSON data containing the new instance of model created from serializer'''
+
+@api_view(['POST'])
+def TestPostView(request):
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid():
+        '''
+        Checks if request data that corresponds to a model field is valid
+        '''
+        
+        #data = serializer.data
+        #serializer.save()
+    else:
+        data = {'validity':'false'}
+  
+    return JsonResponse(serializer.data)
