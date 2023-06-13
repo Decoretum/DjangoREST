@@ -18,12 +18,15 @@ class ProductSerializer(serializers.ModelSerializer):
     on top of model's original method
 
     Using serializer attribute or method, we can DIRECTLY access model attributes and methods
+
+    We transform JSON data into python data (dictionary) that could be transmitted to somewhere as JSON or Python data
     '''
     def get_get_discount(self,obj):
         if hasattr(obj,'id'):                   
             return obj.get_discount() + 100
         else:
             return 'NO DISCOUNT'
+        
         '''
         In this case, 'obj' could be a valid Model OBJECT, or it could be an ORDERED DICTIONARY
         We use if and else, because 'else' occurs when there IS NO OBJECT INSTANTIATED or NO MODEL ID
@@ -40,7 +43,6 @@ class ProductSerializer(serializers.ModelSerializer):
         "obj" here is simply an ordered dictionary containing key-value data
         '''
 
-
     class Meta:
         model = Product
 
@@ -52,6 +54,7 @@ class ProductSerializer(serializers.ModelSerializer):
         '''
         
         fields = [
+            'id',
             'title',
             'content',
             'price',
@@ -59,7 +62,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'Advertise',
             'Greet',
             'get_discount', #from serializer's method
-            'NoInstanceMethod'
+            'NoInstanceMethod' #from serializer's method as well
         ]
 
 class SecondProductSerializer(serializers.ModelSerializer):
@@ -70,12 +73,12 @@ class SecondProductSerializer(serializers.ModelSerializer):
     '''
     In this example, we only returned a 'random' field from the serializer
     '''
+
     
     class Meta:
         model = Product
-        fields = [
-            'random'
-        ]
-    
+        fields = (
+            'random',
+        )
 
     
